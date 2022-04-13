@@ -6,145 +6,197 @@
     android:layout_height="match_parent"
     tools:context=".Cadastro">
 
-    <EditText
-        android:id="@+id/editTextTextPersonName5"
-        android:layout_width="343dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="172dp"
-        android:ems="10"
-        android:hint="Diciplina"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toStartOf="parent" />
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="343dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="108dp"
-        android:ems="10"
-        android:hint="Turma"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.602"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-    <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="343dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="17dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton" />
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/profileImg"
+                android:layout_width="181dp"
+                android:layout_height="163dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="63dp"
+                android:layout_marginRight="63dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/alterarImg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.533"
+                app:roundPercent="1"
+                app:srcCompat="@drawable/profile_default" />
 
-    <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginLeft="41dp"
-        android:layout_marginTop="29dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:roundPercent="1"
-        app:srcCompat="@tools:sample/avatars[0]" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/alterarImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Alterar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.905"
+                app:layout_constraintStart_toEndOf="@+id/profileImg"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout1">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nome_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxBackgroundMode="filled">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Nome"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextNome">
+
+                <RadioButton
+                    android:id="@+id/radioButtonMasculino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Masculino" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonFeminino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Feminino" />
+
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxBackgroundMode="filled">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Email"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/senha_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxBackgroundMode="filled"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextsenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Senha"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:text="Alterar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.809"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/telefone_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxBackgroundMode="filled">
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="343dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="126dp"
-        android:layout_marginBottom="126dp"
-        android:ems="10"
-        android:hint="Nome"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.602"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button3" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTelefone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Telefone"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="22dp"
-        app:layout_constraintStart_toStartOf="@+id/radioButton"
-        app:layout_constraintTop_toTopOf="@+id/radioButton" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/disciplina_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxBackgroundMode="filled">
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="123dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="83dp"
-        android:text="Feminino"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
-        app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextDisciplina"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Disciplina"
+                    android:ems="10"
+                    android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="121dp"
-        android:layout_height="0dp"
-        android:text="Masculino"
-        app:layout_constraintBottom_toBottomOf="@+id/radioButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
-        app:layout_constraintStart_toEndOf="@+id/radioButton"
-        app:layout_constraintTop_toTopOf="@+id/radioButton" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/turma_til"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxBackgroundMode="filled">
 
-    <EditText
-        android:id="@+id/editTextTextPassword2"
-        android:layout_width="343dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="74dp"
-        android:ems="10"
-        android:hint="Senha"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTurma"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Turma"
+                    android:ems="10"
+                    android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName4"
-        android:layout_width="343dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="61dp"
-        android:layout_marginBottom="61dp"
-        android:ems="10"
-        android:hint="Telefone"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPassword2" />
-
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
