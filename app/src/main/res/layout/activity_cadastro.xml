@@ -6,23 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".Cadastro">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/registrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registrar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/toolbarCadastro"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarCadastro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title="Inscrever-se"
+                app:titleTextColor="@color/white">
+
+            </androidx.appcompat.widget.Toolbar>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="55dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:id="@+id/profileImg"
-                android:layout_width="181dp"
-                android:layout_height="163dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="63dp"
@@ -53,13 +92,13 @@
             android:id="@+id/linearLayout"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="9"
-            android:orientation="vertical"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_weight="9"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout1">
@@ -76,8 +115,8 @@
                     android:id="@+id/editTextNome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Nome"
                     android:ems="10"
+                    android:hint="Nome"
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,8 +124,8 @@
                 android:id="@+id/radioGroup"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="1"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -121,9 +160,9 @@
                     android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Email"
                     android:ems="10"
-                    android:inputType="textEmailAddress"/>
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -137,11 +176,11 @@
                 app:passwordToggleTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextsenha"
+                    android:id="@+id/editTextSenha"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Senha"
                     android:ems="10"
+                    android:hint="Senha"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,9 +197,9 @@
                     android:id="@+id/editTextTelefone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Telefone"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:hint="Telefone"
+                    android:inputType="number|phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -175,9 +214,9 @@
                     android:id="@+id/editTextDisciplina"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Disciplina"
                     android:ems="10"
-                    android:inputType="textPersonName"/>
+                    android:hint="Disciplina"
+                    android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -192,9 +231,9 @@
                     android:id="@+id/editTextTurma"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Turma"
                     android:ems="10"
-                    android:inputType="textPersonName"/>
+                    android:hint="Turma"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
