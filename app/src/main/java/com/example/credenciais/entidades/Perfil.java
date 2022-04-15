@@ -1,6 +1,8 @@
 package com.example.credenciais.entidades;
 
-public class Perfil {
+import java.io.Serializable;
+
+public class Perfil implements Serializable {
     private String nome;
     private String sexo;
     private String email;

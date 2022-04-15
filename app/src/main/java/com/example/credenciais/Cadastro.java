@@ -3,6 +3,7 @@ package com.example.credenciais;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.credenciais.entidades.Perfil;
 
 public class Cadastro extends AppCompatActivity {
 
@@ -46,12 +49,32 @@ public class Cadastro extends AppCompatActivity {
         turma = findViewById(R.id.editTextTurma);
 
         Button button = findViewById(R.id.registrar);
-        button.setOnClickListener(v -> validacao());
+        button.setOnClickListener(v -> {
+            if (validacao()) {
+                salvandoPerfil();
+            }
+        });
+    }
+
+    private void salvandoPerfil() {
+        Perfil perfil = new Perfil();
+        RadioButton sexo = findViewById(sexos. getCheckedRadioButtonId());
+        perfil.setNome(nome.getText().toString());
+        perfil.setSexo(sexo.getText().toString());
+        perfil.setEmail(email.getText().toString());
+        perfil.setSenha(senha.getText().toString());
+        perfil.setTelefone(telefone.getText().toString());
+        perfil.setDisciplina(disciplina.getText().toString());
+        perfil.setTurma(turma.getText().toString());
+
+        Intent intent = new Intent(this, Login.class);
+        intent.putExtra("perfil", perfil);
+        startActivity(intent);
+
     }
 
 
-
-    public boolean validacao() {
+    private boolean validacao() {
         boolean valido = true;
 
         if (nome.getText().toString().trim().equalsIgnoreCase("")) {
