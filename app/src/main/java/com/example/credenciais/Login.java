@@ -6,14 +6,19 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.credenciais.entidades.Perfil;
 
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
+    Perfil perfil = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,7 @@ public class Login extends AppCompatActivity {
         Button buttonLogin = findViewById(R.id.button);
         buttonLogin.setOnClickListener(v -> logIn());
 
+        perfil = (Perfil) getIntent().getSerializableExtra("perfil");
     }
 
     public void registrar() {
@@ -36,8 +42,16 @@ public class Login extends AppCompatActivity {
     }
 
     public void logIn() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        EditText emailLogin = findViewById(R.id.editTextLoginEmail);
+        EditText senhaLogin =findViewById(R.id.editTextLoginSenha);
+        if (perfil != null && perfil.getEmail().equals(emailLogin.getText().toString()) && perfil.getSenha().equals(senhaLogin.getText().toString())) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("perfil", perfil);
+            startActivity(intent);
+        } else {
+            Toast.makeText(Login.this, Html.fromHtml("<font color='red' ><b>Login inválido! Realize o cadastro e tente novamente.</b></font>"), Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }
