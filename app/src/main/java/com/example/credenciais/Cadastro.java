@@ -58,7 +58,7 @@ public class Cadastro extends AppCompatActivity {
 
     private void salvandoPerfil() {
         Perfil perfil = new Perfil();
-        RadioButton sexo = findViewById(sexos. getCheckedRadioButtonId());
+        RadioButton sexo = findViewById(sexos.getCheckedRadioButtonId());
         perfil.setNome(nome.getText().toString());
         perfil.setSexo(sexo.getText().toString());
         perfil.setEmail(email.getText().toString());
@@ -78,7 +78,7 @@ public class Cadastro extends AppCompatActivity {
         boolean valido = true;
 
         if (nome.getText().toString().trim().equalsIgnoreCase("")) {
-            nome.setError("This field can not be blank");
+            nome.setError("O Campo nao pode ficar em branco");
             valido = false;
         }
 
@@ -87,12 +87,12 @@ public class Cadastro extends AppCompatActivity {
         }
 
         if (email.getText().toString().trim().equalsIgnoreCase("")) {
-            email.setError("This field can not be blank");
+            email.setError("O Campo nao pode ficar em branco");
             valido = false;
         }
 
         if (senha.getText().toString().trim().equalsIgnoreCase("")) {
-            senha.setError("This field can not be blank");
+            senha.setError("O Campo nao pode ficar em branco");
             valido = false;
         } else if (senha.getText().length() < 6) {
             senha.setError("A senha deve ter ao menos 6 caracteres");
@@ -100,17 +100,17 @@ public class Cadastro extends AppCompatActivity {
         }
 
         if (telefone.getText().toString().trim().equalsIgnoreCase("")) {
-            telefone.setError("This field can not be blank");
+            telefone.setError("O Campo nao pode ficar em branco");
             valido = false;
         }
 
         if (disciplina.getText().toString().trim().equalsIgnoreCase("")) {
-            disciplina.setError("This field can not be blank");
+            disciplina.setError("O Campo nao pode ficar em branco");
             valido = false;
         }
 
         if (turma.getText().toString().trim().equalsIgnoreCase("")) {
-            turma.setError("This field can not be blank");
+            turma.setError("O Campo nao pode ficar em branco");
             valido = false;
         }
 
