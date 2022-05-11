@@ -1,20 +1,16 @@
 package com.example.credenciais;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.credenciais.entidades.Perfil;
-
-import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
@@ -37,7 +33,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void registrar() {
-        Intent intent = new Intent(this, Cadastro.class);
+        Intent intent = new Intent(this, MainActivity2.class);
         startActivity(intent);
     }
 
