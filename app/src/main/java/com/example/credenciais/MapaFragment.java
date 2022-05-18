@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-public class FavoritesFragment extends Fragment implements OnMapReadyCallback {
+public class MapaFragment extends Fragment implements OnMapReadyCallback {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        View view = inflater.inflate(R.layout.fragment_mapa, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         return view;
