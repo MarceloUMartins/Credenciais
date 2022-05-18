@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.credenciais.Mapper.PerfilMapper;
 import com.example.credenciais.entidades.Perfil;
 
 public class Login extends AppCompatActivity {
 
-    Perfil perfil = null;
+    private PerfilMapper perfilMapper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,26 +25,26 @@ public class Login extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarLogin);
         setSupportActionBar(toolbar);
 
+        perfilMapper = new PerfilMapper(this);
+
         Button buttonregistrar = findViewById(R.id.buttonRegistrar);
         buttonregistrar.setOnClickListener(v -> registrar());
 
         Button buttonLogin = findViewById(R.id.button);
         buttonLogin.setOnClickListener(v -> logIn());
-
-        perfil = (Perfil) getIntent().getSerializableExtra("perfil");
     }
 
     public void registrar() {
-        Intent intent = new Intent(this, MainActivity2.class);
+        Intent intent = new Intent(this, Cadastro.class);
         startActivity(intent);
     }
 
     public void logIn() {
         EditText emailLogin = findViewById(R.id.editTextLoginEmail);
         EditText senhaLogin =findViewById(R.id.editTextLoginSenha);
-        if (perfil != null && perfil.getEmail().equals(emailLogin.getText().toString()) && perfil.getSenha().equals(senhaLogin.getText().toString())) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("perfil", perfil);
+
+        if (perfilMapper.login(emailLogin.getText().toString(), senhaLogin.getText().toString())) {
+            Intent intent = new Intent(this, MainActivity2.class);
             startActivity(intent);
         } else {
             Toast.makeText(Login.this, Html.fromHtml("<font color='red' ><b>Login inválido! Realize o cadastro e tente novamente.</b></font>"), Toast.LENGTH_LONG).show();
