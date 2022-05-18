@@ -66,4 +66,9 @@ public class Perfil implements Serializable {
     public void setTurma(String turma) {
         this.turma = turma;
     }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome + " Email: " + email + " Disciplina: " + disciplina + " Turma: " + turma;
+    }
 }
