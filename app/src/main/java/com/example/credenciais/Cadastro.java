@@ -4,18 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.credenciais.Mapper.PerfilMapper;
 import com.example.credenciais.entidades.Perfil;
 
 public class Cadastro extends AppCompatActivity {
@@ -27,6 +24,7 @@ public class Cadastro extends AppCompatActivity {
     private EditText telefone;
     private EditText disciplina;
     private EditText turma;
+    private PerfilMapper perfilMapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +37,8 @@ public class Cadastro extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        perfilMapper = new PerfilMapper(this);
 
         nome = findViewById(R.id.editTextNome);
         sexos = findViewById(R.id.radioGroup);
@@ -67,8 +67,8 @@ public class Cadastro extends AppCompatActivity {
         perfil.setDisciplina(disciplina.getText().toString());
         perfil.setTurma(turma.getText().toString());
 
+        perfilMapper.insert(perfil);
         Intent intent = new Intent(this, Login.class);
-        intent.putExtra("perfil", perfil);
         startActivity(intent);
 
     }
