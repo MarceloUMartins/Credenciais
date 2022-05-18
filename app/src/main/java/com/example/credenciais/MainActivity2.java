@@ -37,10 +37,10 @@ public class MainActivity2 extends AppCompatActivity {
                             selectedFragment = new HomeFragment();
                             break;
                         case R.id.nav_favorites:
-                            selectedFragment = new FavoritesFragment();
+                            selectedFragment = new MapaFragment();
                             break;
                         case R.id.nav_search:
-                            selectedFragment = new SearchFragment();
+                            selectedFragment = new UsuarioFragment();
                             break;
                     }
 
