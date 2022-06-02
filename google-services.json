@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "284334911047",
+    "project_id": "credenciais-f4eef",
+    "storage_bucket": "credenciais-f4eef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284334911047:android:05aaeeb7c98b89cafd4b62",
+        "android_client_info": {
+          "package_name": "com.example.credenciais"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284334911047-e5de25ov4j4k8l426rgqt1orceolmku4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGcuCWUSDc1QXoH5cuamOxIjteaPFKNEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284334911047-e5de25ov4j4k8l426rgqt1orceolmku4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
