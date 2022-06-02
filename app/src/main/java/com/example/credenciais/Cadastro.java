@@ -2,18 +2,33 @@ package com.example.credenciais;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.utils.widget.ImageFilterView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Html;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.credenciais.Mapper.PerfilMapper;
 import com.example.credenciais.entidades.Perfil;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 public class Cadastro extends AppCompatActivity {
 
@@ -25,6 +40,13 @@ public class Cadastro extends AppCompatActivity {
     private EditText disciplina;
     private EditText turma;
     private PerfilMapper perfilMapper;
+    private Button altButton;
+    private ImageFilterView fotoPerfil;
+
+    private ImageView ivStorage;
+
+    private StorageReference storageReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +69,51 @@ public class Cadastro extends AppCompatActivity {
         telefone = findViewById(R.id.editTextTelefone);
         disciplina = findViewById(R.id.editTextDisciplina);
         turma = findViewById(R.id.editTextTurma);
+        fotoPerfil = findViewById(R.id.profileImg);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        altButton = findViewById(R.id.alterarImg);
+        altButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 1);
+        });
+
+        fotoPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                BitmapDrawable bmp = (BitmapDrawable) ivStorage.getDrawable();
+                Bitmap bitmap = bmp.getBitmap();
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos );
+
+
+                byte[] imagemArray = baos.toByteArray();
+
+                StorageReference refPasta = storageReference.child("Imagens");
+                StorageReference refImagem = refPasta.child(".Jpeg");
+                UploadTask task = refImagem.putBytes(imagemArray);
+
+                task.addOnFailureListener(Cadastro.this, (e)-> {
+                    Toast.makeText(Cadastro.this,
+                            "Falha no Upload:" + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }).addOnSuccessListener(Cadastro.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> url = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                        while (!url.isComplete())
+                            ;
+                        Toast.makeText(Cadastro.this,
+                                "Sucesso" + url.getResult().toString(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+        });
 
         Button button = findViewById(R.id.registrar);
         button.setOnClickListener(v -> {
@@ -117,9 +184,25 @@ public class Cadastro extends AppCompatActivity {
         return valido;
     }
 
+
+
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    protected void onActivityResult(int requestCod, int resultCode, Intent dados) {
+
+        super.onActivityResult(requestCod, resultCode, dados);
+        if (requestCod == 1) {
+            try {
+                Bitmap fotoRegistrada = (Bitmap) dados.getExtras().get("data");
+                fotoPerfil.setImageBitmap(fotoRegistrada);
+            } catch (Exception e) {
+            }
+        }
+
     }
 }
