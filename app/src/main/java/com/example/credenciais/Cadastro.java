@@ -7,12 +7,10 @@ import androidx.constraintlayout.utils.widget.ImageFilterView;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Html;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,13 +20,13 @@ import android.widget.Toast;
 
 import com.example.credenciais.Mapper.PerfilMapper;
 import com.example.credenciais.entidades.Perfil;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Cadastro extends AppCompatActivity {
 
@@ -79,41 +77,6 @@ public class Cadastro extends AppCompatActivity {
             startActivityForResult(intent, 1);
         });
 
-        fotoPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                BitmapDrawable bmp = (BitmapDrawable) ivStorage.getDrawable();
-                Bitmap bitmap = bmp.getBitmap();
-
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos );
-
-
-                byte[] imagemArray = baos.toByteArray();
-
-                StorageReference refPasta = storageReference.child("Imagens");
-                StorageReference refImagem = refPasta.child(".Jpeg");
-                UploadTask task = refImagem.putBytes(imagemArray);
-
-                task.addOnFailureListener(Cadastro.this, (e)-> {
-                    Toast.makeText(Cadastro.this,
-                            "Falha no Upload:" + e.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                }).addOnSuccessListener(Cadastro.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Task<Uri> url = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-                        while (!url.isComplete())
-                            ;
-                        Toast.makeText(Cadastro.this,
-                                "Sucesso" + url.getResult().toString(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-        });
 
         Button button = findViewById(R.id.registrar);
         button.setOnClickListener(v -> {
@@ -134,10 +97,43 @@ public class Cadastro extends AppCompatActivity {
         perfil.setDisciplina(disciplina.getText().toString());
         perfil.setTurma(turma.getText().toString());
 
+        salvandoFotoFireBase();
+
+
         perfilMapper.insert(perfil);
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
 
+    }
+
+    private String salvandoFotoFireBase (){
+
+        AtomicReference<String> urlFoto;
+
+        BitmapDrawable bmp = (BitmapDrawable) fotoPerfil.getDrawable();
+        Bitmap bitmap = bmp.getBitmap();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos );
+
+
+        byte[] imagemArray = baos.toByteArray();
+
+        StorageReference refPasta = storageReference.child("Imagens");
+        StorageReference refImagem = refPasta.child(nome.getText().toString() + ".Jpeg");
+        UploadTask task = refImagem.putBytes(imagemArray);
+
+        task.addOnFailureListener(Cadastro.this, (e)-> {
+            Toast.makeText(Cadastro.this,
+                    "Falha no Upload:" + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }).addOnSuccessListener(Cadastro.this, taskSnapshot -> {
+            Task<Uri> url = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+            while (!url.isComplete())
+                ;
+           urlFoto. = url.getResult().toString();
+        });
+        return urlFoto.get();
     }
 
 

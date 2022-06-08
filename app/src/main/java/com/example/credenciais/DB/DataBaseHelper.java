@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "credenciais.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     public static String TABLE_PERFIL = "perfil";
     private static final String CREATE_PERFIL = "CREATE TABLE perfil"
             + "(nome text not null, "
@@ -15,7 +15,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + "senha text not null, "
             + "telefone text not null, "
             + "disciplina text not null, "
-            + "turma text not null);";
+            + "turma text not null,"
+            + "url_foto text );";
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

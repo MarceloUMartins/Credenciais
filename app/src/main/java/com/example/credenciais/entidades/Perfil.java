@@ -10,6 +10,7 @@ public class Perfil implements Serializable {
     private String telefone;
     private String disciplina;
     private String turma;
+    private String urlFoto;
 
     public String getNome() {
         return nome;
@@ -67,8 +68,17 @@ public class Perfil implements Serializable {
         this.turma = turma;
     }
 
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
+
     @Override
     public String toString() {
         return "Nome: " + nome + " Email: " + email + " Disciplina: " + disciplina + " Turma: " + turma;
     }
+
 }
