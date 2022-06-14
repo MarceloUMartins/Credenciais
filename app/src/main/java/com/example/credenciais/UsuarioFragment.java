@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
@@ -25,7 +24,7 @@ public class UsuarioFragment extends Fragment {
 
         List<Perfil> data = perfilMapper.resgatePerfis();
 
-        ArrayAdapter<Perfil> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, data);
+        MyAdapter adapter = new MyAdapter(this.getActivity(), data);
 
         ListView listView = view.findViewById(R.id.listaPerfis);
 
