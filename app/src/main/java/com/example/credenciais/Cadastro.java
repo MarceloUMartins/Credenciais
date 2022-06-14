@@ -11,9 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Html;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -40,8 +42,6 @@ public class Cadastro extends AppCompatActivity {
     private PerfilMapper perfilMapper;
     private Button altButton;
     private ImageFilterView fotoPerfil;
-
-    private ImageView ivStorage;
 
     private StorageReference storageReference;
 
@@ -81,12 +81,12 @@ public class Cadastro extends AppCompatActivity {
         Button button = findViewById(R.id.registrar);
         button.setOnClickListener(v -> {
             if (validacao()) {
-                salvandoPerfil();
+                salvandoFotoFireBasePerfil();
             }
         });
     }
 
-    private void salvandoPerfil() {
+    private void salvandoPerfil(String urlFoto) {
         Perfil perfil = new Perfil();
         RadioButton sexo = findViewById(sexos.getCheckedRadioButtonId());
         perfil.setNome(nome.getText().toString());
@@ -96,9 +96,7 @@ public class Cadastro extends AppCompatActivity {
         perfil.setTelefone(telefone.getText().toString());
         perfil.setDisciplina(disciplina.getText().toString());
         perfil.setTurma(turma.getText().toString());
-
-        salvandoFotoFireBase();
-
+        perfil.setUrlFoto(urlFoto);
 
         perfilMapper.insert(perfil);
         Intent intent = new Intent(this, Login.class);
@@ -106,10 +104,7 @@ public class Cadastro extends AppCompatActivity {
 
     }
 
-    private String salvandoFotoFireBase (){
-
-        AtomicReference<String> urlFoto;
-
+    private void salvandoFotoFireBasePerfil() {
         BitmapDrawable bmp = (BitmapDrawable) fotoPerfil.getDrawable();
         Bitmap bitmap = bmp.getBitmap();
 
@@ -120,20 +115,20 @@ public class Cadastro extends AppCompatActivity {
         byte[] imagemArray = baos.toByteArray();
 
         StorageReference refPasta = storageReference.child("Imagens");
-        StorageReference refImagem = refPasta.child(nome.getText().toString() + ".Jpeg");
+        StorageReference refImagem = refPasta.child(nome.getText().toString() + ".jpeg");
         UploadTask task = refImagem.putBytes(imagemArray);
 
-        task.addOnFailureListener(Cadastro.this, (e)-> {
+        task.addOnFailureListener(Cadastro.this, (error) -> {
+            Log.e("TAG", "error", error);
             Toast.makeText(Cadastro.this,
-                    "Falha no Upload:" + e.getMessage(),
+                    "Falha no Upload:" + error.getMessage(),
                     Toast.LENGTH_LONG).show();
-        }).addOnSuccessListener(Cadastro.this, taskSnapshot -> {
+        })
+        .addOnSuccessListener(Cadastro.this, taskSnapshot -> {
             Task<Uri> url = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-            while (!url.isComplete())
-                ;
-           urlFoto. = url.getResult().toString();
+            while (!url.isComplete());
+            salvandoPerfil(url.getResult().toString());
         });
-        return urlFoto.get();
     }
 
 

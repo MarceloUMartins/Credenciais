@@ -30,14 +30,15 @@ public class PerfilMapper {
     public void insert(Perfil perfil) {
         try {
             open();
-            database.execSQL(("INSERT INTO perfil(nome, sexo, email, senha, telefone, disciplina, turma) VALUES ('" +
+            database.execSQL(("INSERT INTO perfil(nome, sexo, email, senha, telefone, disciplina, turma, url_foto) VALUES ('" +
                     perfil.getNome() + "','" +
                     perfil.getSexo() + "','" +
                     perfil.getEmail() + "','" +
                     perfil.getSenha() + "','" +
                     perfil.getTelefone() + "','" +
                     perfil.getDisciplina() + "','" +
-                    perfil.getTurma() + "')"));
+                    perfil.getTurma() + "','" +
+                    perfil.getUrlFoto() + "')"));
         } catch (Exception e) {
             Log.e("Erro no insert", e.getMessage());
         } finally {
@@ -49,7 +50,7 @@ public class PerfilMapper {
         List<Perfil> perfis = new ArrayList<>();
         try {
             open();
-            Cursor cursor = database.rawQuery("SELECT nome, sexo, email, senha, telefone, disciplina, turma FROM perfil", null);
+            Cursor cursor = database.rawQuery("SELECT nome, sexo, email, senha, telefone, disciplina, turma, url_foto FROM perfil", null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 Perfil perfil = cursorToPerfil(cursor);
@@ -91,6 +92,7 @@ public class PerfilMapper {
         perfil.setTelefone(cursor.getString(4));
         perfil.setDisciplina(cursor.getString(5));
         perfil.setTurma(cursor.getString(6));
+        perfil.setUrlFoto(cursor.getString(7));
         return perfil;
     }
 }
