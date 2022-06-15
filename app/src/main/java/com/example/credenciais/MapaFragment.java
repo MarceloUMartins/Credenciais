@@ -1,5 +1,6 @@
 package com.example.credenciais;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -7,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -38,6 +41,8 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mapa, container, false);
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        ActivityCompat.requestPermissions( this.requireActivity(),
+                new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(view.getContext());
         getLastLocation(this);
         return view;
@@ -86,12 +91,10 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         mFusedLocationClient.getLastLocation()
                 .addOnCompleteListener(this.requireActivity(), task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
-
-                        //obtém a última localização conhecida
                         mLastLocation = task.getResult();
                         mapFragment.getMapAsync(callback);
-
                     } else {
+                        Toast.makeText(this.getContext(), "Não foi possível resgatar localização", Toast.LENGTH_LONG).show();
                         Log.d("MAPA", "Deu ruim a localização",task.getException());
                     }
                 });

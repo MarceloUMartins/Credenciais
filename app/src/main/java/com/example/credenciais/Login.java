@@ -2,7 +2,9 @@ package com.example.credenciais;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -32,6 +34,9 @@ public class Login extends AppCompatActivity {
 
         Button buttonLogin = findViewById(R.id.button);
         buttonLogin.setOnClickListener(v -> logIn());
+
+        ActivityCompat.requestPermissions( this,
+                new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
     public void registrar() {
